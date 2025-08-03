@@ -1,10 +1,10 @@
 import threading
 import random
 import string
-from datetime import datetime, timezone
+from datetime import datetime
 from urllib.parse import urlparse
 
-# In-memory store for short_code → metadata
+# In-memory store
 url_store = {}
 lock = threading.Lock()
 
@@ -24,7 +24,7 @@ def save_url_mapping(original_url):
         url_store[short_code] = {
             "url": original_url,
             "clicks": 0,
-            "created_at": datetime.now(timezone.utc).isoformat()
+            "created_at": datetime.utcnow().isoformat()
         }
         return short_code
 
@@ -33,7 +33,7 @@ def get_original_url(short_code):
         if short_code in url_store:
             url_store[short_code]["clicks"] += 1
             return url_store[short_code]["url"]
-        return None 
+        return None
 
 def get_url_stats(short_code):
     with lock:

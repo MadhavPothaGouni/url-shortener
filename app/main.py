@@ -51,6 +51,3 @@ def get_stats(short_code):
             "created_at": data["created_at"]
         })
     return jsonify({"error": "Short code not found"}), 404
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
